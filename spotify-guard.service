@@ -1,0 +1,10 @@
+[Unit]
+Description=Spotify-Guard - Restart Spotify when ADs detected
+After=graphical-session.target network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bash %h/.local/bin/spotify-guard.sh
+
+[Install]
+WantedBy=default.target

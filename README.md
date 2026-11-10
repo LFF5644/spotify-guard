@@ -1,14 +1,15 @@
-# spotify-guard
+# Spotify-Guard
 Auto restart Spotify if ADs detacted
 
 # Dependencies 
 - Linux
 - playerctl
 - xdotool
+- wget (only for install)
 
 If you are on Debian or Ubuntu based Linux just enter:
 ```sh
-sudo apt install playerctl xdotool
+sudo apt install playerctl xdotool wget
 ```
 
 # How do it work?
@@ -34,3 +35,30 @@ If an AD is start playing the `spotify xesam:url` starts with `https://open.spot
 - Starting Spotify & Min to Taskbar
 - Starting Playback if started
 - wait for the next AD
+
+# Run Spotify-Guard
+Just Listen to Spotify and let the bash script Runnig while you listen xD
+
+```sh
+mkdir -p ~/.local/bin
+wget https://raw.githubusercontent.com/LFF5644/spotify-guard/refs/heads/master/spotify-guard.sh -O ~/.local/bin/spotify-guard.sh
+chmod +x ~/.local/bin/spotify-guard.sh
+bash ~/.local/bin/spotify-guard.sh
+```
+
+For Automaticly startup on Debian & Ubuntu (systemd based) systems just run it as user service
+```sh
+mkdir -p ~/.config/systemd/user/
+wget https://raw.githubusercontent.com/LFF5644/spotify-guard/refs/heads/master/spotify-guard.service -O ~/.config/systemd/user/spotify-guard.service
+systemctl --user daemon-reload
+systemctl --user enable spotify-guard.service
+systemctl --user start spotify-guard.service
+```
+
+You can test the Service simple via:
+```sh
+systemctl --user is-active spotify-guard.service
+systemctl --user is-failed spotify-guard.service # active = good
+systemctl --user is-enabled spotify-guard.service # enabled = starts with system
+systemctl --user status spotify-guard.service # more details
+```
